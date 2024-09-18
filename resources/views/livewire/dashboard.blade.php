@@ -1,4 +1,27 @@
 <div>
     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
-    <h1>Welcome Resume Builder!</h1>
+    <livewire:Navbar />
+    <div style="display: flex;">
+        <div class="card" style="width: 18rem; margin: 5rem 5rem;">
+            <img src="{{ $githubUser->avatar_url }}" class="card-img-top" alt="user-avatar">
+            <div class="card-body">
+                <h5 class="card-title">Hello {{ $githubUser->nickname }}👋</h5>
+                <p class="card-text">Create your RESUME in resume builder right away!</p>
+                <p>Best luck for finding your ideal job 👊</p>
+                <a href="#" class="btn btn-primary">Create my Resume</a>
+            </div>
+        </div>
+        <div class="card" style="margin: 5rem 5rem;">
+            <div class="card-header">
+                STRAT FROM HERE!
+            </div>
+            <div class="card-body" >
+                <blockquote class="blockquote mb-0" >
+                <p>A well-known quote, contained in a blockquote element.</p>
+                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    
 </div>

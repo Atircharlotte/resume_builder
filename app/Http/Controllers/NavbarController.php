@@ -11,6 +11,7 @@ class NavbarController extends Controller
     public function logout()
     {
         Auth::logout();
+        session()->flash('message', '已成功登出！');
         return redirect('/');
     }
     
