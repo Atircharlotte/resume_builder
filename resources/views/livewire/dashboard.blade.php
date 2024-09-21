@@ -8,9 +8,17 @@
                 <h5 class="card-title">Hello {{ $githubUser->nickname }}👋</h5>
                 <p class="card-text">Create your RESUME in resume builder right away!</p>
                 <p>Best luck for finding your ideal job 👊</p>
-                <a href="#" class="btn btn-primary">Create my Resume</a>
+                <button type="button" class="btn btn-primary" wire:click="CreatePage">Create my Resume</button>
+                <br/>
+                <br/>
+                <a href="#" class="btn btn-primary">Resume Archive</a>
             </div>
         </div>
+        @if(session('createdResume'))
+            <div class="alert alert-success">
+                {{ session('createdResume') }}
+            </div>
+        @endif
         <div class="card" style="margin: 5rem 5rem;">
             <div class="card-header">
                 STRAT FROM HERE!

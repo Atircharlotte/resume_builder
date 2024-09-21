@@ -17,9 +17,9 @@
 
         <button type="submit" class="btn btn-primary">Login</button>
     </form> -->
-    @if(session('message'))
+    @if(session('status'))
                 <div class="alert alert-success">
-                    {{ session('message') }}
+                    {{ session('status') }}
                 </div>
     @endif
     

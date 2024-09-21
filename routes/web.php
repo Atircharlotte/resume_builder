@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NavbarController;
+use App\Livewire\CreateResume;
 use App\Livewire\Dashboard;
 use App\Livewire\Login;
 use Illuminate\Support\Facades\Auth;
@@ -25,3 +26,6 @@ Route::get('login/{provider}/callback', [LoginController::class, 'handleProvider
 
 // route for logout
 Route::post('/logout', [NavbarController::class, 'logout'])->name('logout');
+
+// route for create page
+Route::get('/create', CreateResume::class);
