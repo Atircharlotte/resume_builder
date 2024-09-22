@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Resume;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -28,6 +29,9 @@ class CreateResume extends Component
     {
         $this->validate();
 
+        // get the githubuser email
+        $github_email = Auth::user()->getEmail;
+
         Resume::create([
             'name' => $this->name,
             'email' => $this->email,
@@ -36,7 +40,8 @@ class CreateResume extends Component
             'education' => $this->education,
             'skills' => $this->skills,
             'language' => $this->language,
-            'selfIntro' => $this->selfIntro
+            'selfIntro' => $this->selfIntro,
+            'github_email' => $github_email
         ]);
 
         session()->flash('createResume', 'Created successfully!');

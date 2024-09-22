@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Resume;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -17,7 +18,11 @@ class Dashboard extends Component
     {
         $githubUser = Auth::user();
         // dd(get_class_methods($githubUser));
-        return view('livewire.dashboard', ['githubUser' => $githubUser]);
+
+        // get the list of resumes created
+        $github_email = $githubUser->getEmail;
+        $resumes = Resume::where('github_email', $github_email)->get();
+        return view('livewire.dashboard', ['githubUser' => $githubUser, 'resumes' => $resumes]);
     }
 
 }

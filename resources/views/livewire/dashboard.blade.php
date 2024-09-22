@@ -11,7 +11,7 @@
                 <button type="button" class="btn btn-primary" wire:click="CreatePage">Create my Resume</button>
                 <br/>
                 <br/>
-                <a href="#" class="btn btn-primary">Resume Archive</a>
+                <!-- <a href="#" class="btn btn-primary">Resume Archive</a> -->
             </div>
         </div>
         @if(session('createdResume'))
@@ -19,15 +19,21 @@
                 {{ session('createdResume') }}
             </div>
         @endif
-        <div class="card" style="margin: 5rem 5rem;">
+        <div class="card" style="margin: 5rem 5rem; width: 40%;" >
             <div class="card-header">
-                STRAT FROM HERE!
+                <h1>Resume Archive📂</h1>
             </div>
+            <!-- list of resumes created -->
             <div class="card-body" >
-                <blockquote class="blockquote mb-0" >
-                <p>A well-known quote, contained in a blockquote element.</p>
-                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                </blockquote>
+                <div class="d-grid gap-3" style="overflow: scroll;">
+                    @if (count($resumes) > 0)
+                        @foreach ($resumes as $resume)
+                            <a class="btn btn-dark" type="button" href="/resume/{{ $resume->id }}">resume {{ $resume->id }} - {{ $resume->created_at}}</a>
+                        @endforeach
+                    @else
+                        <h4>There's no any resume created!</h4>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
