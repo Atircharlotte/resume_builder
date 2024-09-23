@@ -11,7 +11,6 @@
                 <button type="button" class="btn btn-primary" wire:click="CreatePage">Create my Resume</button>
                 <br/>
                 <br/>
-                <!-- <a href="#" class="btn btn-primary">Resume Archive</a> -->
             </div>
         </div>
         @if(session('createdResume'))
@@ -28,7 +27,12 @@
                 <div class="d-grid gap-3" style="overflow: scroll;">
                     @if (count($resumes) > 0)
                         @foreach ($resumes as $resume)
-                            <a class="btn btn-dark" type="button" href="/resume/{{ $resume->id }}">resume {{ $resume->id }} - {{ $resume->created_at}}</a>
+                            <a class="btn btn-dark" type="button" href="/resume/{{ $resume->id }}">
+                                <h5 style="float: left;">Resume</h5>  
+                                <small>
+                                     <span style="float: right;">created at {{ $resume->created_at}}</span>
+                                </small>
+                            </a>
                         @endforeach
                     @else
                         <h4>There's no any resume created!</h4>
