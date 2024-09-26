@@ -9,27 +9,101 @@ use Livewire\Component;
 
 class ResumePreview extends Component
 {
-    public function render(Request $request)
 
-    {
-    // get the id from route
-    $id = $request->route('id');
+    public $editMode = false;
+    public $resumeId;
+    // for edition mode
+    public $name;
+    public $email;
+    public $phone;
+    public $social;
+    public $education;
+    public $skills;
+    public $language;
+    public $selfIntro;
     
-    // ensure the id is correct
-    if (!$id) {
-        dd('invalid id');
+    public function mount($resumeId) 
+    {
+        $this->resumeId = $resumeId;
+        $resumeContent = Resume::find($this->resumeId);
+
+        if (!$resumeContent) {
+            dd('Resume content not found!');
+        }
+        // $this->name = $resumeContent->name;
+        // $this->email = $resumeContent->email;
+        // $this->phone = $resumeContent->phone;
+        // $this->social = $resumeContent->social;
+        // $this->education = $resumeContent->education;
+        // $this->skills = $resumeContent->skills;
+        // $this->language = $resumeContent->language;
+        // $this->selfIntro = $resumeContent->selfIntro;
+        $this->fill($resumeContent->toArray());
     }
 
-    // get the click resume content
-    $resumeContent = Resume::find($id);
+    public function saveEdition()
+    {
+        $resumeContent = Resume::find($this->resumeId);
 
-    if (!$resumeContent) {
-        dd('Resume not found!');
+        $resumeContent->name = $this->name;
+        $resumeContent->email = $this->email;
+        $resumeContent->phone = $this->phone;
+        $resumeContent->social = $this->social;
+        $resumeContent->education = $this->education;
+        $resumeContent->skills = $this->skills;
+        $resumeContent->language = $this->language;
+        $resumeContent->selfIntro = $this->selfIntro;
+        // $resumeContent->update();
+        $resumeContent->save();
+        // $resumeContent->update([
+        //     'name' => $this->name,
+        //     ''
+        // ]);
+        $this->editMode = !$this->editMode;
     }
-    // dd($resumeContent);
+    
+    public function cancel()
+    {
+        $this->editMode = !$this->editMode;
+    }
 
-    $githubUser = Auth::user();
-        return view('livewire.resume-preview', 
-        ['resumeContent' =>  $resumeContent, 'githubUser' => $githubUser]);
+    public function edit() 
+    {
+         $this->editMode = !$this->editMode;
+
+    }
+    public function delete()
+    {
+        $resumeContent = Resume::find($this->resumeId);
+        $resumeContent->delete();
+        return redirect()->route('dashboard');
+    }
+
+    public function render()
+    {
+        // $this->editMode = false;
+        // get the id from route
+        // $id = $request->route('id');
+        if (!$this->resumeId) {
+            dd('invalid id');
+        }
+    
+        // ensure the id is correct
+        // if (!$id) {
+        //     dd('invalid id');
+        // }
+
+        // get the click resume content
+        // $resumeContent = Resume::find($id);
+        $resumeContent = Resume::find($this->resumeId);
+
+        if (!$resumeContent) {
+            dd('Resume not found!');
+        }
+        // dd($resumeContent);
+
+        $githubUser = Auth::user();
+            return view('livewire.resume-preview', 
+            ['resumeContent' =>  $resumeContent, 'githubUser' => $githubUser, 'editMode' => $this->editMode,]);
     }
 }

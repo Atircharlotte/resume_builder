@@ -32,4 +32,4 @@ Route::post('/logout', [NavbarController::class, 'logout'])->name('logout');
 Route::get('/create', CreateResume::class);
 
 // route for resume preview
-Route::get('/resume/{id}', ResumePreview::class);
+Route::get('/resume/{resumeId}', ResumePreview::class);
