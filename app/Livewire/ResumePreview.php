@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Resume;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class ResumePreview extends Component
@@ -105,5 +106,100 @@ class ResumePreview extends Component
         $githubUser = Auth::user();
             return view('livewire.resume-preview', 
             ['resumeContent' =>  $resumeContent, 'githubUser' => $githubUser, 'editMode' => $this->editMode,]);
+    }
+
+    // public function uploadToREADME()
+    // {
+    //     $githubUser = Auth::user();
+    //     $github_token = $githubUser->token;
+    //     $contentExample = "bXkgdXBkYXRlZCBmaWxlIGNvbnRlbnRz";
+
+    //     $body = array(
+    //         "message" => "update readme file",
+    //         "content" => $contentExample,
+    //     );
+    //     $body = (object) $body;
+
+    //     $response = Http::withHeaders([ 
+    //         'Content-type' => 'application/json; charset=UTF-8',
+    //         'Authorization' => $github_token,
+    //     ])->put('https://api.github.com/repos/cookie-killer/cookie-killer/contents/README.md', $body);
+    //     if ($response->failed()) {
+    //         return view('/error');
+    //     }
+
+        
+    // }
+
+    public function resumeContent()
+    {
+        // get the content pf this resume
+        $resumeContent = Resume::find($this->resumeId);
+
+        // dd($resumeContent);
+        $markdownContent = <<<EOD
+        # {$resumeContent->name}
+
+        ### About me 😆 
+        {$resumeContent->selfIntro}
+        ### I graduated from...📖
+        {$resumeContent->education}
+        ### I'm good at several things below... 💪
+        {$resumeContent->skills}
+        ### I love connecting with people using their mother languages...🗣️
+        {$resumeContent->language}
+        ### Learn more about me? Sure 😎
+        {$resumeContent->social}
+        ### Let's keep in touch 🤙
+        Phone: {$resumeContent->phone}
+        
+        Email: {$resumeContent->email}
+        EOD;
+
+        return $markdownContent;
+    }
+
+    public function uploadToREADME()
+    {
+        $githubUser = Auth::user();
+        $github_token = $githubUser->oauth_token;
+        $repo_owner = $githubUser->nickname; // cookie-killer
+        $repo_name = $githubUser->nickname; // cookie-killer
+
+        $content = $this->resumeContent();
+        $contentBase64 = base64_encode($content);
+
+        $fileResponse = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $github_token,
+        ])->get("https://api.github.com/repos/$repo_owner/$repo_name/contents/README.md");
+
+        if ($fileResponse->failed()) {
+            return view('livewire.error');
+        }
+
+        $fileData = $fileResponse->json();
+        $sha = $fileData['sha'];
+
+        $body = [
+            "message" => "Updated README file",
+            "content" => $contentBase64,
+            "sha" => $sha,
+        ];
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $github_token,
+            'Content-Type' => 'application/json',    
+        ])->put("https://api.github.com/repos/$repo_owner/$repo_name/contents/README.md", $body);
+
+        if ($response->failed()) {
+            // dd($response->json());
+            return view('livewire.error');
+        }
+
+        // for debug(check out the content of the response)
+        // dd($response->json());
+
+        return redirect()->to('/dashboard');
+
     }
 }

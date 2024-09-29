@@ -17,7 +17,8 @@ class User extends Authenticatable
       'nickname',
       'name',
       'email',
-      'avatar_url',  
+      'avatar_url',
+      'oauth_token' 
     ];
     /**
      * The attributes that are mass assignable.

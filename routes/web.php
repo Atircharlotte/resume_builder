@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NavbarController;
 use App\Livewire\CreateResume;
 use App\Livewire\Dashboard;
+use App\Livewire\Error;
 use App\Livewire\Login;
 use App\Livewire\ResumePreview;
 use Illuminate\Support\Facades\Auth;
@@ -33,3 +34,9 @@ Route::get('/create', CreateResume::class);
 
 // route for resume preview
 Route::get('/resume/{resumeId}', ResumePreview::class);
+
+
+// test for github scope
+Route::get('github/login', [LoginController::class, 'testGitHub']);
+
+// Route::get('/error', Error::class);

@@ -17,10 +17,10 @@ class Dashboard extends Component
     public function render()
     {
         $githubUser = Auth::user();
-        // dd(get_class_methods($githubUser));
+        // dd($githubUser);
 
         // get the list of resumes created
-        $github_email = $githubUser->getEmail;
+        $github_email = $githubUser->email;
         $resumes = Resume::where('github_email', $github_email)->get();
         return view('livewire.dashboard', ['githubUser' => $githubUser, 'resumes' => $resumes]);
     }

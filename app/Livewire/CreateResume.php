@@ -30,7 +30,8 @@ class CreateResume extends Component
         $this->validate();
 
         // get the githubuser email
-        $github_email = Auth::user()->getEmail;
+        $githubUser = Auth::user();
+        $github_email = $githubUser->email;
 
         Resume::create([
             'name' => $this->name,
