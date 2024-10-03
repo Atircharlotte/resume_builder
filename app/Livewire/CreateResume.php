@@ -24,6 +24,8 @@ class CreateResume extends Component
     public $language = '';
     public $selfIntro = '';
 
+    protected $middleware = ['auth'];
+
     // save the form
     public function save()
     {

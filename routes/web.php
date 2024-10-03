@@ -16,7 +16,7 @@ use Laravel\Socialite\Facades\Socialite;
 // });
 
 // route for login page
-Route::get('/', Login::class);
+Route::get('/', Login::class)->name('login');
 
 // route for page after login 
 Route::get('/dashboard', Dashboard::class)->name('dashboard');
@@ -30,7 +30,9 @@ Route::get('login/{provider}/callback', [LoginController::class, 'handleProvider
 Route::post('/logout', [NavbarController::class, 'logout'])->name('logout');
 
 // route for create page
-Route::get('/create', CreateResume::class);
+Route::middleware(['auth'])->group(function() {
+    Route::get('/create', CreateResume::class);
+});
 
 // route for resume preview
 Route::get('/resume/{resumeId}', ResumePreview::class);
