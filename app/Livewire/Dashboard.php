@@ -14,15 +14,29 @@ class Dashboard extends Component
         return redirect()->to('/create');
     }
 
-    public function render()
+    public function mount()
     {
-        $githubUser = Auth::user();
-        // dd(get_class_methods($githubUser));
-
-        // get the list of resumes created
-        $github_email = $githubUser->getEmail;
-        $resumes = Resume::where('github_email', $github_email)->get();
-        return view('livewire.dashboard', ['githubUser' => $githubUser, 'resumes' => $resumes]);
+        if (!Auth::check()) {
+            session()->flash('notLogin', 'Please login first!');
+            return redirect()->route('login');
+        }
     }
 
+    // public function showDashboard()
+    // {
+    //     if (!Auth::check()) {
+    //         session()->flash('notLogin', 'Please login first!');
+    //         return redirect('/')->to('/');
+    //     }
+    //     return view('livewire.dashboard');
+    // }    
+    public function render()
+    {
+            $githubUser = Auth::user();
+            
+            $github_email = $githubUser->email;
+            $resumes = Resume::where('github_email', $github_email)->get();
+            return view('livewire.dashboard', ['githubUser' => $githubUser, 'resumes' => $resumes]);
+    
+    }
 }

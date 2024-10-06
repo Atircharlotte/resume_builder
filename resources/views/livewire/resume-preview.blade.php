@@ -59,10 +59,15 @@
             >Delete
             </button>
             <button type="button" class="btn btn-success"
-                    
+                    style="margin-right: 2em;"
                     wire:click="edit"
             >Edit
             </button>
+            <button type="button"
+                class="btn btn-dark"
+                wire:click="uploadToREADME"
+            >Update to GitHub README</button>
+            <!-- wire:click="uploadToREADME"  -->
         </div>
         
     @else   

@@ -24,13 +24,16 @@ class CreateResume extends Component
     public $language = '';
     public $selfIntro = '';
 
+    protected $middleware = ['auth'];
+
     // save the form
     public function save()
     {
         $this->validate();
 
         // get the githubuser email
-        $github_email = Auth::user()->getEmail;
+        $githubUser = Auth::user();
+        $github_email = $githubUser->email;
 
         Resume::create([
             'name' => $this->name,

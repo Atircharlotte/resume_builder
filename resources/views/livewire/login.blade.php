@@ -22,6 +22,16 @@
                     {{ session('status') }}
                 </div>
     @endif
+    @if(session('notLogin'))
+                <div class="alert alert-danger">
+                    {{ session('notLogin') }}
+                </div>
+    @endif
+    @if(session('notLoginAuth'))
+                <div class="alert alert-danger">
+                    {{ session('notLoginAuth') }}
+                </div>
+    @endif
     
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <figure>
