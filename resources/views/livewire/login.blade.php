@@ -17,6 +17,12 @@
 
         <button type="submit" class="btn btn-primary">Login</button>
     </form> -->
+    @if(session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+    @endif
+    
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <figure>
             <blockquote class="blockquote">
@@ -28,7 +34,6 @@
         </figure>
         <button type="button" class="btn btn-secondary btn-lg" wire:click="login">Login via GitHub</button>
     </div>
-        
     
     </div>
     
