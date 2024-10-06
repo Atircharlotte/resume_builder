@@ -5,6 +5,7 @@ use App\Http\Controllers\NavbarController;
 use App\Livewire\CreateResume;
 use App\Livewire\Dashboard;
 use App\Livewire\Login;
+use App\Livewire\ResumePreview;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -29,3 +30,6 @@ Route::post('/logout', [NavbarController::class, 'logout'])->name('logout');
 
 // route for create page
 Route::get('/create', CreateResume::class);
+
+// route for resume preview
+Route::get('/resume/{resumeId}', ResumePreview::class);
