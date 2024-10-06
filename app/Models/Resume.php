@@ -18,6 +18,7 @@ class Resume extends Model
        'education',
        'skills',
        'language',
-       'selfIntro' 
+       'selfIntro',
+       'github_email'
     ];
 }
