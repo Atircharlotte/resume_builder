@@ -107,29 +107,7 @@ class ResumePreview extends Component
             return view('livewire.resume-preview', 
             ['resumeContent' =>  $resumeContent, 'githubUser' => $githubUser, 'editMode' => $this->editMode,]);
     }
-
-    // public function uploadToREADME()
-    // {
-    //     $githubUser = Auth::user();
-    //     $github_token = $githubUser->token;
-    //     $contentExample = "bXkgdXBkYXRlZCBmaWxlIGNvbnRlbnRz";
-
-    //     $body = array(
-    //         "message" => "update readme file",
-    //         "content" => $contentExample,
-    //     );
-    //     $body = (object) $body;
-
-    //     $response = Http::withHeaders([ 
-    //         'Content-type' => 'application/json; charset=UTF-8',
-    //         'Authorization' => $github_token,
-    //     ])->put('https://api.github.com/repos/cookie-killer/cookie-killer/contents/README.md', $body);
-    //     if ($response->failed()) {
-    //         return view('/error');
-    //     }
-
-        
-    // }
+    
 
     public function resumeContent()
     {
